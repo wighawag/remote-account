@@ -46,7 +46,15 @@ export function deriveRemoteAddress(publicExtendedKey: string, address: `0x${str
 	return publicKeyToAddress(publicKey);
 }
 
-export function initAccountFromHD(hdkey: HDKey) {
+export type ETHAccount = {
+	address: `0x${string}`;
+	privateKey: `0x${string}`;
+	publicKey: `0x${string}`;
+	publicExtendedKey: string;
+	deriveForAddress(address: `0x${string}`): ETHAccount;
+};
+
+export function initAccountFromHD(hdkey: HDKey): ETHAccount {
 	if (!hdkey.publicKey) {
 		throw new Error(`invalid hdkey provided, no public key`);
 	}
